@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ShopServiceTest {
 
     @Test
-    void addOrderTest() {
+    void addOrderTest() throws NoSuchProductExeption {
         //GIVEN
         ShopService shopService = new ShopService();
         List<String> productsIds = List.of("1");
@@ -23,20 +23,17 @@ class ShopServiceTest {
     }
 
     @Test
-    void addOrderTest_whenInvalidProductId_expectNull() {
+    void addOrderTest_whenInvalidProductId_expectNoSuchProductExeption() {
         //GIVEN
         ShopService shopService = new ShopService();
         List<String> productsIds = List.of("1", "2");
 
-        //WHEN
-        Order actual = shopService.addOrder(productsIds);
-
-        //THEN
-        assertNull(actual);
+        //WHEN & THEN
+        assertThrows(NoSuchProductExeption.class, () -> shopService.addOrder(productsIds));
     }
 
     @Test
-    void getOrdersByOrderStatus_WhenPROCESSING_ThenListOfProductsWithStatusProcessing() {
+    void getOrdersByOrderStatus_WhenPROCESSING_ThenListOfProductsWithStatusProcessing() throws NoSuchProductExeption {
         //GIVEN
         ShopService shopService = new ShopService();
         List<String> productsIds = List.of("1");
