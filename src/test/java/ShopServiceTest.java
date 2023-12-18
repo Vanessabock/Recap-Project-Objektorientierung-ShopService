@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,5 +33,21 @@ class ShopServiceTest {
 
         //THEN
         assertNull(actual);
+    }
+
+    @Test
+    void getOrdersByOrderStatus_WhenPROCESSING_ThenListOfProductsWithStatusProcessing() {
+        //GIVEN
+        ShopService shopService = new ShopService();
+        List<String> productsIds = List.of("1");
+
+        //WHEN
+        Order order = shopService.addOrder(productsIds);
+        List<Order> actual = shopService.getOrdersByOrderStatus(OrderStatus.PROCESSING);
+
+        //THEN
+        List<Order> expected = new ArrayList<>();
+        expected.add(new Order("-1", List.of(new Product("1", "Apfel")), OrderStatus.PROCESSING));
+        assertEquals(actual.get(0).orderStatus(), expected.get(0).orderStatus());
     }
 }
