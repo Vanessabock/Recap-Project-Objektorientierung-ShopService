@@ -1,7 +1,4 @@
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import lombok.With;
+import lombok.*;
 
 import java.time.ZonedDateTime;
 import java.util.*;
@@ -12,6 +9,7 @@ import java.util.stream.Collectors;
 public class ShopService {
     private ProductRepo productRepo = new ProductRepo();
     private OrderRepo orderRepo = new OrderMapRepo();
+    private IdService idService = new IdService();
 
     public Order addOrder(List<String> productIds) throws NoSuchProductExeption {
         List<Product> products = new ArrayList<>();
