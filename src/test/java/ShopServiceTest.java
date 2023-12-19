@@ -27,7 +27,7 @@ class ShopServiceTest {
     void addOrderTest_whenInvalidProductId_expectNoSuchProductExeption() {
         //GIVEN
         ShopService shopService = new ShopService();
-        List<String> productsIds = List.of("1", "2");
+        List<String> productsIds = List.of("1", "6");
 
         //WHEN & THEN
         assertThrows(NoSuchProductExeption.class, () -> shopService.addOrder(productsIds));
