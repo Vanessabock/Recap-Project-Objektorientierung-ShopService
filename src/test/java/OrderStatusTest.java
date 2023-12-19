@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ class OrderStatusTest {
     void getOrderStatusValue() {
         //GIVEN
         Product product = new Product("1", "Apfel");
-        Order newOrder = new Order("1", List.of(product), OrderStatus.PROCESSING);
+        Order newOrder = new Order("1", List.of(product), OrderStatus.PROCESSING, ZonedDateTime.now());
 
         //WHEN
         String actual = newOrder.orderStatus().getValue();
@@ -25,7 +26,7 @@ class OrderStatusTest {
     void getOrderStatus() {
         //GIVEN
         Product product = new Product("1", "Apfel");
-        Order newOrder = new Order("1", List.of(product), OrderStatus.IN_DELIVERY);
+        Order newOrder = new Order("1", List.of(product), OrderStatus.IN_DELIVERY, ZonedDateTime.now());
 
         //WHEN
         OrderStatus actual = newOrder.orderStatus();

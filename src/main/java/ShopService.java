@@ -1,7 +1,7 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import lombok.With;
+
+import java.time.ZonedDateTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ShopService {
@@ -18,7 +18,7 @@ public class ShopService {
             products.add(productToOrder.get());
         }
 
-        Order newOrder = new Order(UUID.randomUUID().toString(), products, OrderStatus.PROCESSING);
+        Order newOrder = new Order(UUID.randomUUID().toString(), products, OrderStatus.PROCESSING, ZonedDateTime.now());
 
         return orderRepo.addOrder(newOrder);
     }
@@ -27,5 +27,18 @@ public class ShopService {
         return orderRepo.getOrders().stream()
                 .filter(order -> order.orderStatus() == orderStatus)
                 .collect(Collectors.toList());
+    }
+
+    public Order getOrderById(String id) {
+        return orderRepo.getOrders().stream()
+                .filter(order -> Objects.equals(order.id(), id))
+                .toList().get(0);
+    }
+
+    public void updateOrderById(String id, OrderStatus orderStatus){
+        Order orderToUpdate = orderRepo.getOrderById(id);
+        Order newOrder = orderToUpdate.withOrderStatus(orderStatus);
+        // orderRepo.removeOrder(id);
+        orderRepo.addOrder(newOrder);
     }
 }
